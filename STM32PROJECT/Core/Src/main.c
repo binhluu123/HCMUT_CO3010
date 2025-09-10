@@ -214,6 +214,7 @@ static void MX_GPIO_Init(void)
 		  counter--;
 		  if(counter <= 0){
 			  counter = 100;
+			  //TODO
 			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 		  }
 	  }
