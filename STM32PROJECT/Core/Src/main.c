@@ -56,10 +56,48 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void led_off(){
-	  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
-	  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
+int counter = 0;
+int state = 0;
+void set_off() {
+    HAL_GPIO_WritePin(GPIOA,
+        LED_RED_N_Pin|LED_YELLOW_N_Pin|LED_GREEN_N_Pin|
+        LED_RED_S_Pin|LED_YELLOW_S_Pin|LED_GREEN_S_Pin|
+        LED_RED_W_Pin|LED_YELLOW_W_Pin|LED_GREEN_W_Pin|
+        LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin,
+        GPIO_PIN_SET);
+}
+void set_state(int s) {
+    set_off();
+    switch(s) {
+        case 0: // NS xanh, WE đỏ
+            HAL_GPIO_WritePin(LED_GREEN_N_GPIO_Port, LED_GREEN_N_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_GREEN_S_GPIO_Port, LED_GREEN_S_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_RED_W_GPIO_Port, LED_RED_W_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_RED_E_GPIO_Port, LED_RED_E_Pin, GPIO_PIN_RESET);
+            counter = 500;
+            break;
+        case 1: // NS vàng, WE đỏ
+            HAL_GPIO_WritePin(LED_YELLOW_N_GPIO_Port, LED_YELLOW_N_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_YELLOW_S_GPIO_Port, LED_YELLOW_S_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_RED_W_GPIO_Port, LED_RED_W_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_RED_E_GPIO_Port, LED_RED_E_Pin, GPIO_PIN_RESET);
+            counter = 200;
+            break;
+        case 2: // NS đỏ, WE xanh
+            HAL_GPIO_WritePin(LED_RED_N_GPIO_Port, LED_RED_N_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_RED_S_GPIO_Port, LED_RED_S_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_GREEN_W_GPIO_Port, LED_GREEN_W_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_GREEN_E_GPIO_Port, LED_GREEN_E_Pin, GPIO_PIN_RESET);
+            counter = 500;
+            break;
+        case 3: // NS đỏ, WE vàng
+            HAL_GPIO_WritePin(LED_RED_N_GPIO_Port, LED_RED_N_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_RED_S_GPIO_Port, LED_RED_S_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_YELLOW_W_GPIO_Port, LED_YELLOW_W_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(LED_YELLOW_E_GPIO_Port, LED_YELLOW_E_Pin, GPIO_PIN_RESET);
+            counter = 200;
+            break;
+    }
 }
 /* USER CODE END 0 */
 
@@ -93,7 +131,7 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  led_off();
+  set_state(0);
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
@@ -202,10 +240,16 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED_N_Pin|LED_YELLOW_N_Pin|LED_GREEN_N_Pin|LED_RED_S_Pin
+                          |LED_YELLOW_S_Pin|LED_GREEN_S_Pin|LED_RED_W_Pin|LED_YELLOW_W_Pin
+                          |LED_GREEN_W_Pin|LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
+  /*Configure GPIO pins : LED_RED_N_Pin LED_YELLOW_N_Pin LED_GREEN_N_Pin LED_RED_S_Pin
+                           LED_YELLOW_S_Pin LED_GREEN_S_Pin LED_RED_W_Pin LED_YELLOW_W_Pin
+                           LED_GREEN_W_Pin LED_RED_E_Pin LED_YELLOW_E_Pin LED_GREEN_E_Pin */
+  GPIO_InitStruct.Pin = LED_RED_N_Pin|LED_YELLOW_N_Pin|LED_GREEN_N_Pin|LED_RED_S_Pin
+                          |LED_YELLOW_S_Pin|LED_GREEN_S_Pin|LED_RED_W_Pin|LED_YELLOW_W_Pin
+                          |LED_GREEN_W_Pin|LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -214,35 +258,15 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-  int counter = 1;
-  int state = 3;
   void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	  if(counter > 0){
+	  if(counter > 0 ){
 		  counter--;
 		  if(counter <= 0){
 			  //TODO
-			  switch (state){
-			  case 3:
-				  counter = 500;
-				  state = 2;
-				  led_off();
-				  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
-				  break;
-			  case 2:
-				  counter = 200;
-				  state = 1;
-				  led_off();
-				  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
-				  break;
-			  case 1:
-				  counter = 300;
-				  state = 3;
-				  led_off();
-				  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
-				  break;
-			  }
-		  }
+			  state = (state + 1) % 4;
+			  set_state(state);
 	  }
+    }
   }
 /* USER CODE END 4 */
 
