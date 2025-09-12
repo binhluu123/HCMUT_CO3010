@@ -11,15 +11,17 @@
 #include "software_timer.h"
 #include "main.h"
 
-#define INIT        1
-#define AUTO_RED    2
-#define AUTO_YELLOW 3
-#define AUTO_GREEN  4
+#define INIT             1
+#define NS_RED_WE_GREEN  2
+#define NS_RED_WE_YELLOW 3
+#define NS_GREEN_WE_RED  4
+#define NS_YELLOW_WE_RED 5
 
 extern int status;
 
 void led_off();
-void led_red_on();
-void led_yellow_on();
-void led_green_on();
+void NS_red_WE_green();
+void NS_red_WE_yellow();
+void NS_green_WE_red();
+void NS_yellow_WE_red();
 #endif /* INC_GLOBAL_H_ */

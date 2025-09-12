@@ -7,22 +7,69 @@
 #include "global.h"
 int status = 0;
 void led_off(){
-	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA,
+	        LED_RED_N_Pin|LED_YELLOW_N_Pin|LED_GREEN_N_Pin|
+	        LED_RED_S_Pin|LED_YELLOW_S_Pin|LED_GREEN_S_Pin|
+	        LED_RED_W_Pin|LED_YELLOW_W_Pin|LED_GREEN_W_Pin|
+	        LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin,
+	        GPIO_PIN_SET);
 }
-void led_red_on(){
-	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
+// NS xanh, WE đỏ
+void NS_green_WE_red(){
+    HAL_GPIO_WritePin(GPIOA,
+        LED_GREEN_N_Pin | LED_GREEN_S_Pin |
+        LED_RED_W_Pin   | LED_RED_E_Pin,
+        GPIO_PIN_RESET);
+
+    HAL_GPIO_WritePin(GPIOA,
+        LED_YELLOW_N_Pin | LED_YELLOW_S_Pin |
+        LED_YELLOW_W_Pin | LED_YELLOW_E_Pin |
+        LED_RED_N_Pin    | LED_RED_S_Pin    |
+        LED_GREEN_W_Pin  | LED_GREEN_E_Pin,
+        GPIO_PIN_SET);
 }
-void led_yellow_on(){
-	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
+
+// NS vàng, WE đỏ
+void NS_yellow_WE_red(){
+    HAL_GPIO_WritePin(GPIOA,
+        LED_YELLOW_N_Pin | LED_YELLOW_S_Pin |
+        LED_RED_W_Pin    | LED_RED_E_Pin,
+        GPIO_PIN_RESET);
+
+    HAL_GPIO_WritePin(GPIOA,
+        LED_GREEN_N_Pin  | LED_GREEN_S_Pin  |
+        LED_GREEN_W_Pin  | LED_GREEN_E_Pin  |
+        LED_RED_N_Pin    | LED_RED_S_Pin    |
+        LED_YELLOW_W_Pin | LED_YELLOW_E_Pin,
+        GPIO_PIN_SET);
 }
-void led_green_on(){
-	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
+
+// NS đỏ, WE xanh
+void NS_red_WE_green(){
+    HAL_GPIO_WritePin(GPIOA,
+        LED_RED_N_Pin   | LED_RED_S_Pin   |
+        LED_GREEN_W_Pin | LED_GREEN_E_Pin,
+        GPIO_PIN_RESET);
+
+    HAL_GPIO_WritePin(GPIOA,
+        LED_GREEN_N_Pin  | LED_GREEN_S_Pin  |
+        LED_YELLOW_N_Pin | LED_YELLOW_S_Pin |
+        LED_YELLOW_W_Pin | LED_YELLOW_E_Pin |
+        LED_RED_W_Pin    | LED_RED_E_Pin,
+        GPIO_PIN_SET);
+}
+
+// NS đỏ, WE vàng
+void NS_red_WE_yellow(){
+    HAL_GPIO_WritePin(GPIOA,
+        LED_RED_N_Pin     | LED_RED_S_Pin   |
+        LED_YELLOW_W_Pin  | LED_YELLOW_E_Pin,
+        GPIO_PIN_RESET);
+
+    HAL_GPIO_WritePin(GPIOA,
+        LED_GREEN_N_Pin   | LED_GREEN_S_Pin  |
+        LED_YELLOW_N_Pin  | LED_YELLOW_S_Pin |
+        LED_GREEN_W_Pin   | LED_GREEN_E_Pin  |
+        LED_RED_W_Pin     | LED_RED_E_Pin,
+        GPIO_PIN_SET);
 }
