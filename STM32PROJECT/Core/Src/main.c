@@ -19,7 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "software_timer.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -99,9 +99,34 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  int state = 3;
+  setTimer1(1);
   while (1)
   {
+	  if(timer1_flag == 1){
+		  //TODO
+		  switch (state){
+		  case 3:
+			  setTimer1(500);
+			  state = 2;
+			  led_off();
+			  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+			  break;
+		  case 2:
+			  setTimer1(200);
+			  state = 1;
+			  led_off();
+			  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
+			  break;
+		  case 1:
+			  setTimer1(300);
+			  state = 3;
+			  led_off();
+			  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
+			  break;
+		  }
+	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -214,35 +239,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-  int counter = 1;
-  int state = 3;
   void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	  if(counter > 0){
-		  counter--;
-		  if(counter <= 0){
-			  //TODO
-			  switch (state){
-			  case 3:
-				  counter = 500;
-				  state = 2;
-				  led_off();
-				  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
-				  break;
-			  case 2:
-				  counter = 200;
-				  state = 1;
-				  led_off();
-				  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
-				  break;
-			  case 1:
-				  counter = 300;
-				  state = 3;
-				  led_off();
-				  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
-				  break;
-			  }
-		  }
-	  }
+	  timerRun();
   }
 /* USER CODE END 4 */
 
