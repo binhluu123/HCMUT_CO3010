@@ -1,0 +1,4 @@
+global.c:9:6:led_off	8	static
+global.c:14:6:led_red_on	8	static
+global.c:19:6:led_yellow_on	8	static
+global.c:24:6:led_green_on	8	static
