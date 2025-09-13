@@ -97,14 +97,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  status = INIT;
+  status_1 = INIT;
+  status_2 = INIT;
   while (1)
   {
 	fsm_automatic_run();
-	if (timer2_flag == 1) {
-	    display7SEG();
-	    setTimer2(50);
-	 }
+	fsm_led7_run();
 
     /* USER CODE END WHILE */
 
