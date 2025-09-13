@@ -21,6 +21,7 @@
 #include "main.h"
 #include "software_timer.h"
 #include "fsm_automatic.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -91,6 +92,7 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
+  setTimer2(50);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,7 +101,10 @@ int main(void)
   while (1)
   {
 	fsm_automatic_run();
-
+	if (timer2_flag == 1) {
+	    display7SEG();
+	    setTimer2(50);
+	 }
 
     /* USER CODE END WHILE */
 
@@ -207,10 +212,10 @@ static void MX_GPIO_Init(void)
                           |LED_GREEN_W_Pin|LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED7_1_a_Pin|LED7_1_b_Pin|LED7_1_c_Pin|GPIO_PIN_10
-                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
+  HAL_GPIO_WritePin(GPIOB, LED7_1_a_Pin|LED7_1_b_Pin|LED7_1_c_Pin|LED7_2_d_Pin
+                          |LED7_2_e_Pin|LED7_2_f_Pin|LED7_2_g_Pin|GPIO_PIN_14
                           |GPIO_PIN_15|LED7_1_d_Pin|LED7_1_e_Pin|LED7_1_f_Pin
-                          |LED7_1_g_Pin|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
+                          |LED7_1_g_Pin|LED7_2_a_Pin|LED7_2_b_Pin|LED7_2_c_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LED_RED_N_Pin LED_YELLOW_N_Pin LED_GREEN_N_Pin LED_RED_S_Pin
                            LED_YELLOW_S_Pin LED_GREEN_S_Pin LED_RED_W_Pin LED_YELLOW_W_Pin
@@ -223,14 +228,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED7_1_a_Pin LED7_1_b_Pin LED7_1_c_Pin PB10
-                           PB11 PB12 PB13 PB14
+  /*Configure GPIO pins : LED7_1_a_Pin LED7_1_b_Pin LED7_1_c_Pin LED7_2_d_Pin
+                           LED7_2_e_Pin LED7_2_f_Pin LED7_2_g_Pin PB14
                            PB15 LED7_1_d_Pin LED7_1_e_Pin LED7_1_f_Pin
-                           LED7_1_g_Pin PB7 PB8 PB9 */
-  GPIO_InitStruct.Pin = LED7_1_a_Pin|LED7_1_b_Pin|LED7_1_c_Pin|GPIO_PIN_10
-                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
+                           LED7_1_g_Pin LED7_2_a_Pin LED7_2_b_Pin LED7_2_c_Pin */
+  GPIO_InitStruct.Pin = LED7_1_a_Pin|LED7_1_b_Pin|LED7_1_c_Pin|LED7_2_d_Pin
+                          |LED7_2_e_Pin|LED7_2_f_Pin|LED7_2_g_Pin|GPIO_PIN_14
                           |GPIO_PIN_15|LED7_1_d_Pin|LED7_1_e_Pin|LED7_1_f_Pin
-                          |LED7_1_g_Pin|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
+                          |LED7_1_g_Pin|LED7_2_a_Pin|LED7_2_b_Pin|LED7_2_c_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
