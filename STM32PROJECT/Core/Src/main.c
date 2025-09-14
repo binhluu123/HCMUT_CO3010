@@ -101,6 +101,7 @@ int main(void)
   status_2 = INIT;
   while (1)
   {
+	  //TODO
 	fsm_automatic_run();
 	fsm_led7_run();
 

@@ -3,24 +3,23 @@
  */
 #include "software_timer.h"
 
-int timer1_counter = 0;
-int timer1_flag = 0;
+volatile int timer1_counter = 0;
+volatile int timer1_flag = 0;
 
-int timer2_counter = 0;
-int timer2_flag = 0;
+volatile int timer2_counter = 0;
+volatile int timer2_flag = 0;
 
-int timer3_counter = 0;
-int timer3_flag = 0;
-int timer3_reload = 0;   // thêm biến reload cho timer3
+volatile int timer3_counter = 0;
+volatile int timer3_flag = 0;
 
-int timer4_counter = 0;
-int timer4_flag = 0;
-int timer4_reload = 0;   // thêm biến reload cho timer4
+volatile int timer4_counter = 0;
+volatile int timer4_flag = 0;
 
-int timer_num = 0;       // cho NS
-int timer_num_WE = 0;    // cho WE
+/* Các biến countdown hiển thị (của bạn) */
+volatile int timer_num = 0;       // cho NS
+volatile int timer_num_WE = 0;    // cho WE
 
-void setTimer1(int duration){
+void setTimer1(int duration){      // duration: ticks (1 tick = 10ms)
     timer1_counter = duration;
     timer1_flag = 0;
 }
@@ -32,37 +31,32 @@ void setTimer2(int duration){
 
 void setTimer3(int duration){
     timer3_counter = duration;
-    timer3_reload = duration;  // lưu giá trị reload
     timer3_flag = 0;
 }
 
 void setTimer4(int duration){
     timer4_counter = duration;
-    timer4_reload = duration;
     timer4_flag = 0;
 }
 
-void timerRun(){
+/* timerRun: gọi từ TIM ISR, giảm counter; KHÔNG tự reload
+   Khi counter xuống 0 -> chỉ set flag, không nạp lại.
+*/
+void timerRun(void){
     if(timer1_counter > 0){
         timer1_counter--;
-        if(timer1_counter <= 0) timer1_flag = 1;
+        if(timer1_counter == 0) timer1_flag = 1;
     }
     if(timer2_counter > 0){
         timer2_counter--;
-        if(timer2_counter <= 0) timer2_flag = 1;
+        if(timer2_counter == 0) timer2_flag = 1;
     }
     if(timer3_counter > 0){
         timer3_counter--;
-        if(timer3_counter <= 0){
-            timer3_flag = 1;
-            timer3_counter = timer3_reload; // tự reload
-        }
+        if(timer3_counter == 0) timer3_flag = 1;
     }
     if(timer4_counter > 0){
         timer4_counter--;
-        if(timer4_counter <= 0){
-            timer4_flag = 1;
-            timer4_counter = timer4_reload; // tự reload
-        }
+        if(timer4_counter == 0) timer4_flag = 1;
     }
 }

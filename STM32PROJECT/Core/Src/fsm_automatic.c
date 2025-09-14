@@ -47,33 +47,47 @@ void fsm_automatic_run(){
 	}
 }
 void fsm_led7_run(void){
-    // Giảm số cho NS mỗi giây
-    if(timer3_flag){
-        timer3_flag = 0;
-        if(timer_num > 0) timer_num--;
-    }
-    // Giảm số cho WE mỗi giây
-    if(timer4_flag){
-        timer4_flag = 0;
-        if(timer_num_WE > 0) timer_num_WE--;
-    }
-
-    // Luôn refresh LED (không phụ thuộc flag, để quét liên tục)
+    // Luôn refresh LED (gọi liên tục để hiển thị)
     LED_7SEG_1(timer_num);
     LED_7SEG_2(timer_num_WE);
 
+    // Xử lý countdown NS (one-shot): khi flag lên -> giảm 1, nếu vẫn >0 thì set lại 1s
+    if(timer3_flag){
+        timer3_flag = 0;           // tiêu thụ flag
+        if(timer_num > 0){
+            timer_num--;          // giảm 1 giây
+            LED_7SEG_1(timer_num); // update ngay
+            if(timer_num > 0){
+                setTimer3(100);  // nạp lại 1s (100 ticks)
+            }
+        }
+    }
+
+    // Xử lý countdown WE (one-shot)
+    if(timer4_flag){
+        timer4_flag = 0;
+        if(timer_num_WE > 0){
+            timer_num_WE--;
+            LED_7SEG_2(timer_num_WE);
+            if(timer_num_WE > 0){
+                setTimer4(100);
+            }
+        }
+    }
+
+    // Phần trạng thái (giữ y nguyên logic của bạn, chỉ đảm bảo setTimer3/4 khi cài mới)
     switch(status_2){
     case INIT:
         led7_off();
         status_2 = NS_RED_WE_GREEN;
 
         timer_num = 5;          // NS RED 5s
-        setTimer3(100);         // reload mỗi 1s (100*10ms)
+        setTimer3(100);         // reload mỗi 1s (100 ticks)
 
         timer_num_WE = 3;       // WE GREEN 3s
         setTimer4(100);
 
-        setTimer2(300);         // WE green 3s
+        setTimer2(300);         // WE green 3s (state timer)
         break;
 
     case NS_RED_WE_GREEN:
