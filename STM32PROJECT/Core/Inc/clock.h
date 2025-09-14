@@ -9,6 +9,9 @@
 #define INC_CLOCK_H_
 #include "software_timer.h"
 
-void test_clock(int num);
+extern int static_num;
+
+void led_clock(int num);
+void test_clock();
 
 #endif /* INC_CLOCK_H_ */
