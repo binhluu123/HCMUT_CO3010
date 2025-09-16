@@ -15,11 +15,11 @@ volatile int timer3_flag = 0;
 volatile int timer4_counter = 0;
 volatile int timer4_flag = 0;
 
-/* Các biến countdown hiển thị (của bạn) */
+//Các biến countdown của led 7 đoạn
 volatile int timer_num = 0;       // cho NS
 volatile int timer_num_WE = 0;    // cho WE
 
-void setTimer1(int duration){      // duration: ticks (1 tick = 10ms)
+void setTimer1(int duration){
     timer1_counter = duration;
     timer1_flag = 0;
 }
@@ -39,9 +39,7 @@ void setTimer4(int duration){
     timer4_flag = 0;
 }
 
-/* timerRun: gọi từ TIM ISR, giảm counter; KHÔNG tự reload
-   Khi counter xuống 0 -> chỉ set flag, không nạp lại.
-*/
+
 void timerRun(void){
     if(timer1_counter > 0){
         timer1_counter--;
