@@ -91,15 +91,20 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  setTimer1(100);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  static_num = 0;
+  //Trạng đầu vào của clock
+  hour = 0;
+  minute = 0;
+  second = 0;
+  clearAllClock();
+  setTimer1(100);
   while (1)
   {
-	  test_clock(static_num);
+	  //test_clock();
+	  clock();
 
     /* USER CODE END WHILE */
 
