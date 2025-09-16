@@ -44,7 +44,7 @@ void clock(){
 
         //Chỉ số của 3 kim
 		int pos_sec = second / 5;
-		int pos_min = minute % 12;
+		int pos_min = minute / 5;
 		int pos_hour = hour  % 12;
 
         //Chỉ số đứng trước của 3 kim

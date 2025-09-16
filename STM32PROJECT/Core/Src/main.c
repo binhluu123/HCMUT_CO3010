@@ -103,6 +103,7 @@ int main(void)
   setTimer1(100);
   while (1)
   {
+//TODO
 	  //test_clock();
 	  clock();
 
