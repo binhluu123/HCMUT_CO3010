@@ -54,4 +54,5 @@ void LED_7SEG_1(int num);
 void LED_7SEG_2(int num);
 void display7SEG_1();
 void display7SEG_2();
+
 #endif /* INC_GLOBAL_H_ */

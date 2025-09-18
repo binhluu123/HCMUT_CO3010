@@ -3,21 +3,21 @@
  */
 #include "software_timer.h"
 
-volatile int timer1_counter = 0;
-volatile int timer1_flag = 0;
+int timer1_counter = 0;
+int timer1_flag = 0;
 
-volatile int timer2_counter = 0;
-volatile int timer2_flag = 0;
+int timer2_counter = 0;
+int timer2_flag = 0;
 
-volatile int timer3_counter = 0;
-volatile int timer3_flag = 0;
+int timer3_counter = 0;
+int timer3_flag = 0;
 
-volatile int timer4_counter = 0;
-volatile int timer4_flag = 0;
+int timer4_counter = 0;
+int timer4_flag = 0;
 
 //Các biến countdown của led 7 đoạn
-volatile int timer_num = 0;       // cho NS
-volatile int timer_num_WE = 0;    // cho WE
+int timer_num = 0;       // cho NS
+int timer_num_WE = 0;    // cho WE
 
 void setTimer1(int duration){
     timer1_counter = duration;
