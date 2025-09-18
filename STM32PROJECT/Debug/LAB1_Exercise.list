@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00016764  00000000  00000000  0002b840  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000a405  00000000  00000000  00041fa4  2**0
+ 17 .debug_line   0000a407  00000000  00000000  00041fa4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00082731  00000000  00000000  0004c3a9  2**0
+ 18 .debug_str    00082731  00000000  00000000  0004c3ab  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000ceada  2**0
+ 19 .comment      00000053  00000000  00000000  000ceadc  2**0
                   CONTENTS, READONLY
  20 .debug_frame  0000282c  00000000  00000000  000ceb30  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -211,12 +211,12 @@ void fsm_led7_run(void){
  8000214:	b580      	push	{r7, lr}
  8000216:	af00      	add	r7, sp, #0
     // Luôn refresh LED (gọi liên tục để hiển thị)
-    LED_7SEG_1(timer_num);
+     LED_7SEG_1(timer_num);
  8000218:	4b50      	ldr	r3, [pc, #320]	; (800035c <fsm_led7_run+0x148>)
  800021a:	681b      	ldr	r3, [r3, #0]
  800021c:	4618      	mov	r0, r3
  800021e:	f000 f901 	bl	8000424 <LED_7SEG_1>
-    LED_7SEG_2(timer_num_WE);
+     LED_7SEG_2(timer_num_WE);
  8000222:	4b4f      	ldr	r3, [pc, #316]	; (8000360 <fsm_led7_run+0x14c>)
  8000224:	681b      	ldr	r3, [r3, #0]
  8000226:	4618      	mov	r0, r3
@@ -789,17 +789,17 @@ void display7SEG_1(void){
  80005c4:	681b      	ldr	r3, [r3, #0]
  80005c6:	2b00      	cmp	r3, #0
  80005c8:	dd10      	ble.n	80005ec <display7SEG_1+0x3c>
-            timer_num--;
+            LED_7SEG_1(timer_num);
  80005ca:	4b0a      	ldr	r3, [pc, #40]	; (80005f4 <display7SEG_1+0x44>)
  80005cc:	681b      	ldr	r3, [r3, #0]
- 80005ce:	3b01      	subs	r3, #1
- 80005d0:	4a08      	ldr	r2, [pc, #32]	; (80005f4 <display7SEG_1+0x44>)
- 80005d2:	6013      	str	r3, [r2, #0]
-            LED_7SEG_1(timer_num);
+ 80005ce:	4618      	mov	r0, r3
+ 80005d0:	f7ff ff28 	bl	8000424 <LED_7SEG_1>
+            timer_num--;
  80005d4:	4b07      	ldr	r3, [pc, #28]	; (80005f4 <display7SEG_1+0x44>)
  80005d6:	681b      	ldr	r3, [r3, #0]
- 80005d8:	4618      	mov	r0, r3
- 80005da:	f7ff ff23 	bl	8000424 <LED_7SEG_1>
+ 80005d8:	3b01      	subs	r3, #1
+ 80005da:	4a06      	ldr	r2, [pc, #24]	; (80005f4 <display7SEG_1+0x44>)
+ 80005dc:	6013      	str	r3, [r2, #0]
             if(timer_num > 0){
  80005de:	4b05      	ldr	r3, [pc, #20]	; (80005f4 <display7SEG_1+0x44>)
  80005e0:	681b      	ldr	r3, [r3, #0]
@@ -836,17 +836,17 @@ void display7SEG_2(void){
  800060c:	681b      	ldr	r3, [r3, #0]
  800060e:	2b00      	cmp	r3, #0
  8000610:	dd10      	ble.n	8000634 <display7SEG_2+0x3c>
-            timer_num_WE--;
+            LED_7SEG_2(timer_num_WE);
  8000612:	4b0a      	ldr	r3, [pc, #40]	; (800063c <display7SEG_2+0x44>)
  8000614:	681b      	ldr	r3, [r3, #0]
- 8000616:	3b01      	subs	r3, #1
- 8000618:	4a08      	ldr	r2, [pc, #32]	; (800063c <display7SEG_2+0x44>)
- 800061a:	6013      	str	r3, [r2, #0]
-            LED_7SEG_2(timer_num_WE);
+ 8000616:	4618      	mov	r0, r3
+ 8000618:	f7ff ff64 	bl	80004e4 <LED_7SEG_2>
+            timer_num_WE--;
  800061c:	4b07      	ldr	r3, [pc, #28]	; (800063c <display7SEG_2+0x44>)
  800061e:	681b      	ldr	r3, [r3, #0]
- 8000620:	4618      	mov	r0, r3
- 8000622:	f7ff ff5f 	bl	80004e4 <LED_7SEG_2>
+ 8000620:	3b01      	subs	r3, #1
+ 8000622:	4a06      	ldr	r2, [pc, #24]	; (800063c <display7SEG_2+0x44>)
+ 8000624:	6013      	str	r3, [r2, #0]
             if(timer_num_WE > 0){
  8000626:	4b05      	ldr	r3, [pc, #20]	; (800063c <display7SEG_2+0x44>)
  8000628:	681b      	ldr	r3, [r3, #0]

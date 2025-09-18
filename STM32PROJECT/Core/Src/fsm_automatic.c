@@ -48,8 +48,8 @@ void fsm_automatic_run(){
 }
 void fsm_led7_run(void){
     // Luôn refresh LED (gọi liên tục để hiển thị)
-    LED_7SEG_1(timer_num);
-    LED_7SEG_2(timer_num_WE);
+     LED_7SEG_1(timer_num);
+     LED_7SEG_2(timer_num_WE);
     // Phụ trách đếm số
     display7SEG_1();
     display7SEG_2();

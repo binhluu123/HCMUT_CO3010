@@ -102,8 +102,8 @@ void display7SEG_1(void){
     if(timer3_flag){
         timer3_flag = 0;
         if(timer_num > 0){
-            timer_num--;
             LED_7SEG_1(timer_num);
+            timer_num--;
             if(timer_num > 0){
                 setTimer3(100);
             }
@@ -115,8 +115,8 @@ void display7SEG_2(void){
     if(timer4_flag){
         timer4_flag = 0;
         if(timer_num_WE > 0){
-            timer_num_WE--;
             LED_7SEG_2(timer_num_WE);
+            timer_num_WE--;
             if(timer_num_WE > 0){
                 setTimer4(100);
             }
