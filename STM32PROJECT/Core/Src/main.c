@@ -92,18 +92,16 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  setTimer2(50);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   status_1 = INIT;
-  status_2 = INIT;
+  setTimer1(100);
   while (1)
   {
 	  //TODO
 	fsm_automatic_run();
-	fsm_led7_run();
 
     /* USER CODE END WHILE */
 

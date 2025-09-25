@@ -11,6 +11,5 @@
 #include "global.h"
 
 void fsm_automatic_run();
-void fsm_led7_run();
 
 #endif /* INC_FSM_AUTOMATIC_H_ */
