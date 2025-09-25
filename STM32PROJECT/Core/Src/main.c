@@ -96,8 +96,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   status = INIT;
+  setTimer2(5);
   while (1)
   {
+	led_blinky();
 	fsm_automatic_run();
 
     /* USER CODE END WHILE */
@@ -200,10 +202,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_BLINKY_Pin|LED_YELLOW_Pin|LED_GREEN_Pin|LED_RED_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
+  /*Configure GPIO pins : LED_BLINKY_Pin LED_YELLOW_Pin LED_GREEN_Pin LED_RED_Pin */
+  GPIO_InitStruct.Pin = LED_BLINKY_Pin|LED_YELLOW_Pin|LED_GREEN_Pin|LED_RED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

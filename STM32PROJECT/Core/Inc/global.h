@@ -18,6 +18,7 @@
 
 extern int status;
 
+void led_blinky();
 void led_off();
 void led_red_on();
 void led_yellow_on();

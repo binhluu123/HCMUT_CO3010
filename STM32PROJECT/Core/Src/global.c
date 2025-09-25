@@ -6,6 +6,12 @@
  */
 #include "global.h"
 int status = 0;
+void led_blinky(){
+	if(timer2_flag){
+		setTimer2(100);
+		HAL_GPIO_TogglePin(LED_BLINKY_GPIO_Port, LED_BLINKY_Pin);
+	}
+}
 void led_off(){
 	HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_SET);
