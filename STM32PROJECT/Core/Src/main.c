@@ -19,11 +19,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "software_timer.h"
-#include "clock.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "software_timer.h"
+#include "clock.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,6 +95,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  setTimer2(5);
   //Trạng đầu vào của clock
   hour = 0;
   minute = 0;
@@ -103,7 +104,8 @@ int main(void)
   setTimer1(100);
   while (1)
   {
-//TODO
+      //TODO
+	  led_blinky();
 	  //test_clock();
 	  clock();
 
@@ -156,7 +158,7 @@ void SystemClock_Config(void)
   */
 static void MX_TIM2_Init(void)
 {
-   HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_RESET);
+
   /* USER CODE BEGIN TIM2_Init 0 */
 
   /* USER CODE END TIM2_Init 0 */
@@ -207,16 +209,19 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_12_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin
-                          |LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin
-                          |LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_BLINKY_Pin|LED_12_Pin|LED_1_Pin|LED_2_Pin
+                          |LED_3_Pin|LED_4_Pin|LED_5_Pin|LED_6_Pin
+                          |LED_7_Pin|LED_8_Pin|LED_9_Pin|LED_10_Pin
+                          |LED_11_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_12_Pin LED_1_Pin LED_2_Pin LED_3_Pin
-                           LED_4_Pin LED_5_Pin LED_6_Pin LED_7_Pin
-                           LED_8_Pin LED_9_Pin LED_10_Pin LED_11_Pin */
-  GPIO_InitStruct.Pin = LED_12_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin
-                          |LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin
-                          |LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin;
+  /*Configure GPIO pins : LED_BLINKY_Pin LED_12_Pin LED_1_Pin LED_2_Pin
+                           LED_3_Pin LED_4_Pin LED_5_Pin LED_6_Pin
+                           LED_7_Pin LED_8_Pin LED_9_Pin LED_10_Pin
+                           LED_11_Pin */
+  GPIO_InitStruct.Pin = LED_BLINKY_Pin|LED_12_Pin|LED_1_Pin|LED_2_Pin
+                          |LED_3_Pin|LED_4_Pin|LED_5_Pin|LED_6_Pin
+                          |LED_7_Pin|LED_8_Pin|LED_9_Pin|LED_10_Pin
+                          |LED_11_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

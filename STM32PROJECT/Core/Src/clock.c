@@ -29,7 +29,7 @@ void clearNumberOnClock(int num){
 void test_clock(){
 	if(timer1_flag == 1){
 		// Set flag = 0 và là khoảng thời gian sáng giữa 2 led
-		setTimer1(50);
+		setTimer1(5);
 
 		// Quy trình test tuần tự led trong đồng hồ
 		clearAllClock();
@@ -79,5 +79,11 @@ void clock(){
 				if(hour >= 12) hour = 0;
 			}
 		}
+	}
+}
+void led_blinky(){
+	if(timer2_flag){
+		HAL_GPIO_TogglePin(LED_BLINKY_GPIO_Port, LED_BLINKY_Pin);
+		setTimer2(25);
 	}
 }

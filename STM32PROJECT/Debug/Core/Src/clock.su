@@ -3,3 +3,4 @@ clock.c:22:6:clearAllClock	4	static
 clock.c:25:6:clearNumberOnClock	16	static
 clock.c:29:6:test_clock	8	static
 clock.c:41:6:clock	32	static
+clock.c:84:6:led_blinky	8	static

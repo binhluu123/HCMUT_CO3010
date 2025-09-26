@@ -24,5 +24,5 @@ void clearNumberOnClock(int num);
 void test_clock();
 void clearAllClock();
 void clock();
-
+void led_blinky();
 #endif /* INC_CLOCK_H_ */
