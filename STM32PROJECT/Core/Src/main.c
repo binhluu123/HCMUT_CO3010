@@ -95,8 +95,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer2(5);
-  //Trạng đầu vào của clock
+  setTimer2(100);
+  //Trang thai dau vao cua clock
   hour = 0;
   minute = 0;
   second = 0;

@@ -40,7 +40,7 @@ void test_clock(){
 }
 void clock(){
 	if(timer1_flag == 1){
-		setTimer1(5);
+		setTimer1(100);
 
         //Chỉ số của 3 kim
 		int pos_sec = second / 5;
@@ -84,6 +84,6 @@ void clock(){
 void led_blinky(){
 	if(timer2_flag){
 		HAL_GPIO_TogglePin(LED_BLINKY_GPIO_Port, LED_BLINKY_Pin);
-		setTimer2(25);
+		setTimer2(100);
 	}
 }

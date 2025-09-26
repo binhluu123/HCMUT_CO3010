@@ -157,8 +157,8 @@ void clock(){
  80001bc:	681b      	ldr	r3, [r3, #0]
  80001be:	2b01      	cmp	r3, #1
  80001c0:	f040 809e 	bne.w	8000300 <clock+0x14c>
-		setTimer1(5);
- 80001c4:	2005      	movs	r0, #5
+		setTimer1(100);
+ 80001c4:	2064      	movs	r0, #100	; 0x64
  80001c6:	f000 f9b7 	bl	8000538 <setTimer1>
 
         //Chỉ số của 3 kim
@@ -364,8 +364,8 @@ void led_blinky(){
  800032c:	2108      	movs	r1, #8
  800032e:	4805      	ldr	r0, [pc, #20]	; (8000344 <led_blinky+0x24>)
  8000330:	f000 fd0e 	bl	8000d50 <HAL_GPIO_TogglePin>
-		setTimer2(25);
- 8000334:	2019      	movs	r0, #25
+		setTimer2(100);
+ 8000334:	2064      	movs	r0, #100	; 0x64
  8000336:	f000 f913 	bl	8000560 <setTimer2>
 	}
 }
@@ -415,10 +415,10 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer2(5);
- 8000362:	2005      	movs	r0, #5
+  setTimer2(100);
+ 8000362:	2064      	movs	r0, #100	; 0x64
  8000364:	f000 f8fc 	bl	8000560 <setTimer2>
-  //Trạng đầu vào của clock
+  //Trang thai dau vao cua clock
   hour = 0;
  8000368:	4b0a      	ldr	r3, [pc, #40]	; (8000394 <main+0x4c>)
  800036a:	2200      	movs	r2, #0
