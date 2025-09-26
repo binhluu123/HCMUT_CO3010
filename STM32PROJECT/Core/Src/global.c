@@ -7,6 +7,12 @@
 #include "global.h"
 int status_1 = 0;
 int status_2 = 0;
+void led_blinky(){
+	if(timer5_flag){
+		HAL_GPIO_TogglePin(LED_BLINKY_GPIO_Port, LED_BLINKY_Pin);
+		setTimer5(100);
+	}
+}
 void led_off(){
 	GPIOA->BSRR = LED_ALL;
 }

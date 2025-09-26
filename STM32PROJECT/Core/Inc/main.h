@@ -96,6 +96,8 @@ void Error_Handler(void);
 #define LED_YELLOW_E_GPIO_Port GPIOA
 #define LED_GREEN_E_Pin GPIO_PIN_12
 #define LED_GREEN_E_GPIO_Port GPIOA
+#define LED_BLINKY_Pin GPIO_PIN_13
+#define LED_BLINKY_GPIO_Port GPIOA
 #define LED7_1_d_Pin GPIO_PIN_3
 #define LED7_1_d_GPIO_Port GPIOB
 #define LED7_1_e_Pin GPIO_PIN_4

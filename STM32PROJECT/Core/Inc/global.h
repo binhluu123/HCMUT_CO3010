@@ -44,6 +44,7 @@ extern int status_led7;
 extern uint8_t segCode_1[10];
 extern uint8_t segCode_2[10];
 
+void led_blinky();
 void led_off();
 void led7_off();
 void NS_red_WE_green();

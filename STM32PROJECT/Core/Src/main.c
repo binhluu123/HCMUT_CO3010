@@ -19,12 +19,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "software_timer.h"
-#include "fsm_automatic.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "software_timer.h"
+#include "fsm_automatic.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,16 +91,18 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
-  setTimer2(50);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   status_1 = INIT;
   status_2 = INIT;
+  setTimer2(50);
+  setTimer5(5);
   while (1)
   {
 	  //TODO
+	led_blinky();
 	fsm_automatic_run();
 	fsm_led7_run();
 
@@ -208,7 +209,8 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_RED_N_Pin|LED_YELLOW_N_Pin|LED_GREEN_N_Pin|LED_RED_S_Pin
                           |LED_YELLOW_S_Pin|LED_GREEN_S_Pin|LED_RED_W_Pin|LED_YELLOW_W_Pin
-                          |LED_GREEN_W_Pin|LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin, GPIO_PIN_RESET);
+                          |LED_GREEN_W_Pin|LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin
+                          |LED_BLINKY_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LED7_1_a_Pin|LED7_1_b_Pin|LED7_1_c_Pin|LED7_2_d_Pin
@@ -218,10 +220,12 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : LED_RED_N_Pin LED_YELLOW_N_Pin LED_GREEN_N_Pin LED_RED_S_Pin
                            LED_YELLOW_S_Pin LED_GREEN_S_Pin LED_RED_W_Pin LED_YELLOW_W_Pin
-                           LED_GREEN_W_Pin LED_RED_E_Pin LED_YELLOW_E_Pin LED_GREEN_E_Pin */
+                           LED_GREEN_W_Pin LED_RED_E_Pin LED_YELLOW_E_Pin LED_GREEN_E_Pin
+                           LED_BLINKY_Pin */
   GPIO_InitStruct.Pin = LED_RED_N_Pin|LED_YELLOW_N_Pin|LED_GREEN_N_Pin|LED_RED_S_Pin
                           |LED_YELLOW_S_Pin|LED_GREEN_S_Pin|LED_RED_W_Pin|LED_YELLOW_W_Pin
-                          |LED_GREEN_W_Pin|LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin;
+                          |LED_GREEN_W_Pin|LED_RED_E_Pin|LED_YELLOW_E_Pin|LED_GREEN_E_Pin
+                          |LED_BLINKY_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
