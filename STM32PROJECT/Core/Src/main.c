@@ -96,7 +96,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   status = INIT;
-  setTimer2(5);
+  setTimer2(100);
   while (1)
   {
 	led_blinky();
