@@ -40,6 +40,7 @@
 
 extern int status_1;
 
+void led_blinky();
 void led_off();
 void NS_red_WE_green();
 void NS_red_WE_yellow();
